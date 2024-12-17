@@ -7,8 +7,7 @@ const Game = () => {
 
     useEffect(() => {
         if (!socket) {
-            const ws = new WebSocket("ws://localhost:3000"); // Replace with your WebSocket server URL
-
+            const ws = new WebSocket("ws://localhost:3000"); 
             ws.onopen = () => {
                 console.log("Connected to WebSocket server");
             };
@@ -47,7 +46,7 @@ const Game = () => {
     return (
         <div className="flex flex-col items-center justify-center h-screen gap-y-10">
             {
-                board ? (<ChessBoard board={board} />) : (
+                board ? (<ChessBoard board={board} socket={socket} />) : (
                     <div>
                         <h1 className="font-bold text-2xl">Game</h1>
                         <button className="font-bold text-gray-50 bg-green-800 px-8 py-4 rounded-lg" onClick={onClick}>

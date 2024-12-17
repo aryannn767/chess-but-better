@@ -29,6 +29,7 @@ wss.on('connection',ws=>{
         }
     })
     ws.on("close", () => {
+        gameManager.removeUser(ws);
         console.log("Client disconnected");
     }
     )

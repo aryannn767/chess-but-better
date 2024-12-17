@@ -18,6 +18,10 @@ export class GameManager{
         this.initGame()
     }
 
+    removeUser(socket:WebSocket){
+        this.playerQueue = this.playerQueue.filter(player => player !== socket);
+    }
+
     initGame(){
         if(this.playerQueue.length < 2){
             console.log("Waiting for players to join");
