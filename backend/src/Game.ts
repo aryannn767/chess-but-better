@@ -14,6 +14,7 @@ export class Game{
     }
 
     startGame(){
+
         console.log("Game started");
         this.player1.send(JSON.stringify({type:"board",board:this.board.getBoard()}))
         this.player2.send(JSON.stringify({type:"board",board:this.board.getBoard()}))

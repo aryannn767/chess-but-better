@@ -18,14 +18,11 @@ const ChessBoard = ({board,socket}:{board:string[][], socket:WebSocket}) => {
         }else if(to === null){
             setTo(move);
             socket.send(JSON.stringify({type:'move', move:{from: from, to:move}}));
-            //const currentFrom = from
-            //const currentTo = move
-            //console.log('Move',currentFrom,currentTo);
-
             setFrom(null);
             setTo(null);
         }
     }
+    
     return (
         <div>
             {
@@ -35,7 +32,9 @@ const ChessBoard = ({board,socket}:{board:string[][], socket:WebSocket}) => {
                             row.map((cell, j) => (
                                 <div key={j} className={`w-20 h-20 flex items-center justify-center ${i % 2 === j % 2 ? 'bg-gray-300' : 'bg-gray-500'}`}
                                     onClick={()=>{onClick(i,j)}}>
-                                    {cell}
+                                    {
+                                        cell!=="" && <img src={`${cell}.png`} alt="" className="w-16 h-16" />
+                                    }
                                 </div>
                             ))
                         }

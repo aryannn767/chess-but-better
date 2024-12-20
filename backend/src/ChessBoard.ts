@@ -1,3 +1,5 @@
+import { Validator } from "./Validator";
+
 export interface Move{
     from: string;
     to: string;
@@ -5,9 +7,11 @@ export interface Move{
 
 export class ChessBoard {
     private board : string[][]; 
+    private validator: Validator;
 
     constructor(){
         this.board = this.initBoard()
+        this.validator = new Validator(this.board);
         console.log("ChessBoard created");
     }
 
@@ -34,7 +38,7 @@ export class ChessBoard {
         console.log("  a b c d e f g h");
     }
 
-    private toChessNotation(move:string):[number,number]{
+    public static toChessNotation(move:string):[number,number]{
         const col = move.charCodeAt(0) - 'a'.charCodeAt(0);
         const row = 8 - parseInt(move[1]);
         return [row,col];
@@ -45,8 +49,15 @@ export class ChessBoard {
     }
 
     movePiece(move:Move):void{
-        const [fromRow,fromCol] = this.toChessNotation(move.from);
-        const [toRow,toCol] = this.toChessNotation(move.to);
+        const [fromRow,fromCol] = ChessBoard.toChessNotation(move.from);
+        const [toRow,toCol] = ChessBoard.toChessNotation(move.to);
+        const piece = this.validator.getPiece(move);
+        if(!piece ){
+            console.log("Invalid move");
+            return;
+
+        }
+        console.log("piece from validator ",piece);
         console.log(`Moving piece from ${fromCol} ${fromRow} to ${toCol} ${toRow} `);
         this.board[toRow][toCol] = this.board[fromRow][fromCol];
         this.board[fromRow][fromCol] = '';
