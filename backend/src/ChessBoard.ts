@@ -52,7 +52,7 @@ export class ChessBoard {
         const [fromRow,fromCol] = ChessBoard.toChessNotation(move.from);
         const [toRow,toCol] = ChessBoard.toChessNotation(move.to);
         const piece = this.validator.getPiece(move);
-        if(!piece ){
+        if(!piece){
             console.log("Invalid move");
             return;
 
@@ -61,5 +61,7 @@ export class ChessBoard {
         console.log(`Moving piece from ${fromCol} ${fromRow} to ${toCol} ${toRow} `);
         this.board[toRow][toCol] = this.board[fromRow][fromCol];
         this.board[fromRow][fromCol] = '';
+        console.log('is check', this.validator.isKingInCheck('white'))
+        console.log('is checkmate', this.validator.isCheckMate('white'))
     }
 }
